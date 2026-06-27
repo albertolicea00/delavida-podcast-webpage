@@ -1,39 +1,57 @@
-# Contributing to Las Locuras de Miguelín Landing Page
+# Contributing to DeLaVida Podcast Webpage 🇨🇺
 
-First off, thank you for considering contributing to this project! It's people like you that make the open-source community such an amazing place.
+First off, thank you for considering contributing to the DeLaVida Podcast webpage! It's people like you that make this community great.
 
-## How Can I Contribute?
+## 🚀 How to Get Started
 
-### Reporting Bugs
+1. **Fork** the repository on GitHub.
+2. **Clone** your fork locally:
+   ```bash
+   git clone https://github.com/albertolicea00/delavida-podcast-webpage.git
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Environment Variables**:
+   Create a `.env` file based on `.env.example` and configure the YouTube credentials if you want to test the video integration:
+   ```bash
+   cp .env.example .env
+   ```
+5. **Create a branch** for your feature or fix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+6. **Develop** and ensure the project runs smoothly:
+   ```bash
+   npm run dev
+   ```
+7. **Build** the project to verify it compiles:
+   ```bash
+   npm run build
+   ```
 
-Before creating bug reports, please check the existing issues to see if the problem has already been reported. When creating a bug report, please include as many details as possible:
+## 🛠️ Tech Stack
 
-- Use a clear and descriptive title.
-- Describe the exact steps which reproduce the problem.
-- Explain which behavior you expected to see and why.
+- [Astro](https://astro.build/) - Web framework.
+- [Tailwind CSS](https://tailwindcss.com/) - Styling.
+- [TypeScript](https://www.typescriptlang.org/) - Type safety.
+- [YouTube Data API](https://developers.google.com/youtube/v3) - For video feed integration.
 
-### Suggesting Enhancements
+## 📝 Contribution Guidelines
 
-Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion, please:
+- **Clean Code**: Ensure your code is readable and follows standard practices.
+- **Responsive Design**: Any UI changes must work across all screen sizes (mobile first).
+- **Internationalization (i18n)**: If you add or modify text, update both languages in `src/i18n/es.ts` and `src/i18n/en.ts`.
+- **Descriptive Commits**: Use clear and concise commit messages.
 
-- Use a clear and descriptive title.
-- Provide a step-by-step description of the suggested enhancement.
-- Explain why this enhancement would be useful.
+## 📬 Submitting a Pull Request
 
-### Pull Requests
+1. Push your changes to your fork: `git push origin feature/your-feature-name`.
+2. Open a **Pull Request** on the main repository.
+3. Provide a clear description of the changes and any relevant screenshots if applicable.
+4. Wait for a review (we'll get back to you as soon as possible!).
 
-1. Fork the repository and create your branch from `main`.
-2. Install dependencies: `npm install`.
-3. Make your changes.
-4. Ensure the project builds: `npm run build`.
-5. Submit a pull request!
+---
 
-## Style Guide
-
-- We use **Astro** for the framework and **Tailwind CSS** for styling.
-- Follow the existing code style and naming conventions.
-- Ensure your code is clean and well-documented.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under its MIT License.
+Made with ❤️ by the community.

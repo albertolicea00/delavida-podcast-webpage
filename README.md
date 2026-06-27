@@ -1,68 +1,40 @@
-# Las Locuras de Miguelín - Landing Page 🎙️
+# DeLaVida Podcast :: WebPage
 
-Welcome to the official repository for the **Las Locuras de Miguelín** landing page! This project is a modern, dynamic website designed to showcase the best of the podcast, its viral episodes, and its crew.
-
-## 🚀 Description
-
-This landing page is built to provide a stunning and fluid visual experience, integrating real-time data from YouTube and Instagram to keep fans updated with the latest content.
-
-## 🛠️ Technology Stack
-
-- **[Astro](https://astro.build/)** - The web framework for ultimate speed.
-- **[Tailwind CSS](https://tailwindcss.com/)** - For modern, highly customizable styling.
-- **TypeScript** - For robust and typed development.
-- **YouTube API** - Integration to display the latest episodes and viral videos.
-- **Instagram Integration** - To showcase profile pictures and updated data from the crew.
-
-## ✨ Features
-
-- **Hero Section:** Dynamic presentation with YouTube integration.
-- **Recent Episodes:** Automatically displays the latest podcast or live stream.
-- **Viral Videos:** A curated selection of the most popular moments from the channel.
-- **Crew / Team:** Meet the members with their updated social media profiles.
-- **Events & Sponsors:** Dedicated space for upcoming dates and partner brands.
-- **Responsive Design:** Optimized for mobile, tablet, and desktop.
-- **Multilingual Support:** Built with i18n support (Spanish and English).
-
-## 📦 Installation & Setup
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/your-username/miguelin-podcast.git
-   cd miguelin-podcast
-   ```
-
-2. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Environment Variables:**
-   Create a `.env` file based on `.env.example` and add your API keys (YouTube, etc.).
-   For static deployments, also set `PUBLIC_YOUTUBE_API_KEY` and `PUBLIC_YOUTUBE_CHANNEL_ID`
-   if you want the homepage to refresh the latest YouTube videos on page load without waiting for a new build.
-
-4. **Start the development server:**
-
-   ```bash
-   npm run dev
-   ```
-
-5. **Build for production:**
-   ```bash
-   npm run build
-   ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please check the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details on how to get started.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+[![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 ---
 
-Built with ❤️ for the **Las Locuras de Miguelín** community.
+## 📖 About the Project
+
+This is the community landing/web-page for the **DeLaVida Podcast** (Las Locuras de Miguelín), created and developed by [Alberto Licea](https://github.com/albertolicea00). The site is designed to showcase the best of the podcast, its viral episodes, and its crew, centralizing content, social profiles, and collaborations.
+
+### ✨ Features
+
+- 🌍 **Multi-language Support**: Full support for Spanish and English.
+- 🎬 **Video Feed**: Integration with latest content and live streams from YouTube using the YouTube API.
+- 👥 **Crew / Team Section**: Meet the members of the podcast with their updated social media profiles.
+- 📱 **Mobile First**: Fully responsive layout optimized for mobile, tablet, and desktop screens.
+- 🎨 **Premium Aesthetics**: Smooth animations, dark mode, and modern design.
+- 📢 **Events & Sponsors**: Dedicated space for upcoming dates and partner brands.
+
+---
+
+## 🛠️ Development & Contributing
+
+Contributions are welcome! For instructions on how to set up, run, and contribute to this project, please refer to the [CONTRIBUTING.md](./CONTRIBUTING.md) guide.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
+
+---
+
+Vibed with ❤️ by [@albertolicea00](https://github.com/albertolicea00) & ...
+
+<a href="https://github.com/albertolicea00/delavida-podcast-webpage/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=albertolicea00/delavida-podcast-webpage" />
+</a>
+
+<sub>Made with [contrib.rocks](https://contrib.rocks).</sub>
