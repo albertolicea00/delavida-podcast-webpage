@@ -1,0 +1,10 @@
+{
+	"recurse": true,
+	"skip": [
+		"^https?://(www\\.)?(instagram|youtube|facebook|twitter|linkedin|tiktok|spotify|apple)\\.com",
+		"^https?://(www\\.)?googletagmanager\\.com",
+		"^https?://(www\\.)?fonts\\.googleapis\\.com",
+		"^https?://(www\\.)?fonts\\.gstatic\\.com"
+	],
+	"concurrency": 100
+}
