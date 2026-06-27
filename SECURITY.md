@@ -2,11 +2,7 @@
 
 ## Supported Versions
 
-Only the latest version of this project is actively supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
+Only the latest version of this project is actively supported with security updates. (main branch)
 
 ## Reporting a Vulnerability
 
