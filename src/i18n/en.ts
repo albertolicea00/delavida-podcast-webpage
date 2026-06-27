@@ -22,7 +22,6 @@ export const en = {
 
 	// -- Hero --
 	hero: {
-		badge: "🎙 LIVE PODCAST FROM MIAMI",
 		line1: "LAS LOCURAS",
 		line2: "DE MIGUELÍN",
 		subtitle:
