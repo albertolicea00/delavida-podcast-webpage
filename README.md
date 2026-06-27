@@ -8,7 +8,7 @@
 
 ## 📖 About the Project
 
-This is the community landing/web-page for the **DeLaVida Podcast** (Las Locuras de Miguelín), created and developed by [Alberto Licea](https://github.com/albertolicea00). The site is designed to showcase the best of the podcast, its viral episodes, and its crew, centralizing content, social profiles, and collaborations.
+This is the community landing/web-page for the **De La Vida Podcast** (Las Locuras de Miguelín). The site is designed to showcase the best of the podcast, its viral episodes, and its crew, centralizing content, social profiles, and collaborations.
 
 ### ✨ Features
 
