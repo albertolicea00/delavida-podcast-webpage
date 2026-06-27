@@ -7,91 +7,93 @@ export const IG_CACHE_KEY_PREFIX = "ig_data_";
 export const IG_CACHE_TTL = 1000 * 60 * 60; // 1 hour
 
 export interface InstagramPost {
-  id: string;
-  shortcode: string;
-  thumbnail: string;
-  caption: string;
-  likes: number;
-  comments: number;
-  isVideo: boolean;
-  timestamp: number;
-  url: string;
+	id: string;
+	shortcode: string;
+	thumbnail: string;
+	caption: string;
+	likes: number;
+	comments: number;
+	isVideo: boolean;
+	timestamp: number;
+	url: string;
 }
 
 export interface InstagramData {
-  profilePicUrl: string | null;
-  posts: InstagramPost[];
-  timestamp: number;
+	profilePicUrl: string | null;
+	posts: InstagramPost[];
+	timestamp: number;
 }
 
 export async function fetchInstagramDataClient(
-  username: string,
+	username: string
 ): Promise<InstagramData | null> {
-  const cacheKey = `${IG_CACHE_KEY_PREFIX}${username}`;
+	const cacheKey = `${IG_CACHE_KEY_PREFIX}${username}`;
 
-  // 1. Check LocalStorage Cache
-  try {
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-      const parsed = JSON.parse(cached) as InstagramData;
-      const isExpired = Date.now() - parsed.timestamp > IG_CACHE_TTL;
-      if (!isExpired) {
-        console.log(`[IG Client] Using cached data for @${username}`);
-        return parsed;
-      }
-    }
-  } catch (e) {
-    console.warn("[IG Client] Cache read error", e);
-  }
+	// 1. Check LocalStorage Cache
+	try {
+		const cached = localStorage.getItem(cacheKey);
+		if (cached) {
+			const parsed = JSON.parse(cached) as InstagramData;
+			const isExpired = Date.now() - parsed.timestamp > IG_CACHE_TTL;
+			if (!isExpired) {
+				console.log(`[IG Client] Using cached data for @${username}`);
+				return parsed;
+			}
+		}
+	} catch (e) {
+		console.warn("[IG Client] Cache read error", e);
+	}
 
-  // 2. Fetch from Instagram via CORS proxy (Client IP)
-  try {
-    console.log(`[IG Client] Fetching @${username} from browser...`);
-    
-    const apiUrl = `/api/instagram?username=${username}`;
-    
-    const response = await fetch(apiUrl);
-    
-    if (!response.ok) {
-      console.warn(`[IG Client] API proxy failed for @${username}: ${response.status}`);
-      return null;
-    }
+	// 2. Fetch from Instagram via CORS proxy (Client IP)
+	try {
+		console.log(`[IG Client] Fetching @${username} from browser...`);
 
-    const json = await response.json();
-    const user = json?.data?.user;
-    if (!user) return null;
+		const apiUrl = `/api/instagram?username=${username}`;
 
-    const profilePicUrl =
-      user.profile_pic_url_hd || user.profile_pic_url || null;
-    const edges = user.edge_owner_to_timeline_media?.edges || [];
+		const response = await fetch(apiUrl);
 
-    const posts: InstagramPost[] = edges.map((edge: any) => {
-      const node = edge.node;
-      const captionEdges = node.edge_media_to_caption?.edges || [];
-      return {
-        id: node.id,
-        shortcode: node.shortcode,
-        thumbnail: node.thumbnail_src || node.display_url,
-        caption: captionEdges[0]?.node?.text || "",
-        likes: node.edge_liked_by?.count || 0,
-        comments: node.edge_media_to_comment?.count || 0,
-        isVideo: node.is_video || false,
-        timestamp: node.taken_at_timestamp || 0,
-        url: `https://www.instagram.com/p/${node.shortcode}/`,
-      };
-    });
+		if (!response.ok) {
+			console.warn(
+				`[IG Client] API proxy failed for @${username}: ${response.status}`
+			);
+			return null;
+		}
 
-    const data: InstagramData = {
-      profilePicUrl,
-      posts,
-      timestamp: Date.now(),
-    };
+		const json = await response.json();
+		const user = json?.data?.user;
+		if (!user) return null;
 
-    // 3. Save to Cache
-    localStorage.setItem(cacheKey, JSON.stringify(data));
-    return data;
-  } catch (error) {
-    console.error(`[IG Client] Error fetching @${username}:`, error);
-    return null;
-  }
+		const profilePicUrl =
+			user.profile_pic_url_hd || user.profile_pic_url || null;
+		const edges = user.edge_owner_to_timeline_media?.edges || [];
+
+		const posts: InstagramPost[] = edges.map((edge: any) => {
+			const node = edge.node;
+			const captionEdges = node.edge_media_to_caption?.edges || [];
+			return {
+				id: node.id,
+				shortcode: node.shortcode,
+				thumbnail: node.thumbnail_src || node.display_url,
+				caption: captionEdges[0]?.node?.text || "",
+				likes: node.edge_liked_by?.count || 0,
+				comments: node.edge_media_to_comment?.count || 0,
+				isVideo: node.is_video || false,
+				timestamp: node.taken_at_timestamp || 0,
+				url: `https://www.instagram.com/p/${node.shortcode}/`,
+			};
+		});
+
+		const data: InstagramData = {
+			profilePicUrl,
+			posts,
+			timestamp: Date.now(),
+		};
+
+		// 3. Save to Cache
+		localStorage.setItem(cacheKey, JSON.stringify(data));
+		return data;
+	} catch (error) {
+		console.error(`[IG Client] Error fetching @${username}:`, error);
+		return null;
+	}
 }

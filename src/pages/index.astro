@@ -2,7 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { useTranslations } from "../i18n/utils";
 import { fetchAllYouTubeData } from "../services/youtube";
-import { fetchAllProfilePics, fetchAllInstagramData } from "../services/instagram";
+import {
+	fetchAllProfilePics,
+	fetchAllInstagramData,
+} from "../services/instagram";
 import { INSTAGRAM_HANDLES } from "../data/social";
 import { getSiteData } from "../data/site";
 import HeroSection from "../components/HeroSection.astro";
@@ -21,19 +24,25 @@ const data = getSiteData(lang);
 
 // Fetch real-time data at build time
 const ytData = await fetchAllYouTubeData();
-const allChars = data.characters.map((c) => ({ id: c.id, instagramHandle: INSTAGRAM_HANDLES[c.id] || "" }));
+const allChars = data.characters.map((c) => ({
+	id: c.id,
+	instagramHandle: INSTAGRAM_HANDLES[c.id] || "",
+}));
 await fetchAllInstagramData(allChars);
 const profilePics = await fetchAllProfilePics(allChars);
 ---
 
 <BaseLayout title={t.meta.title} description={t.meta.description} lang={lang}>
-  <HeroSection lang={lang} channelInfo={ytData.channel} />
-  <LatestEpisodeSection lang={lang} liveVideo={ytData.latestVideos[0] ?? null} />
-  <ViralEpisodesSection lang={lang} liveVideos={ytData.popularVideos} />
-  <CrewSection lang={lang} profilePics={profilePics} />
-  <EventSection lang={lang} />
-  <SponsorsSection lang={lang} />
-  <YouTubeLiveSync lang={lang} channelId={ytData.channel?.id ?? null} />
-  <!-- SocialSection hidden for now -->
-  <ScamPopup lang={lang} />
+	<HeroSection lang={lang} channelInfo={ytData.channel} />
+	<LatestEpisodeSection
+		lang={lang}
+		liveVideo={ytData.latestVideos[0] ?? null}
+	/>
+	<ViralEpisodesSection lang={lang} liveVideos={ytData.popularVideos} />
+	<CrewSection lang={lang} profilePics={profilePics} />
+	<EventSection lang={lang} />
+	<SponsorsSection lang={lang} />
+	<YouTubeLiveSync lang={lang} channelId={ytData.channel?.id ?? null} />
+	<!-- SocialSection hidden for now -->
+	<ScamPopup lang={lang} />
 </BaseLayout>

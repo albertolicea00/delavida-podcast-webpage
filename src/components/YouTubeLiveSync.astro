@@ -3,8 +3,8 @@ import type { Locale } from "../i18n/utils";
 import { useTranslations } from "../i18n/utils";
 
 interface Props {
-  lang: Locale;
-  channelId?: string | null;
+	lang: Locale;
+	channelId?: string | null;
 }
 
 const { lang, channelId: initialChannelId = null } = Astro.props;
@@ -12,83 +12,84 @@ const t = useTranslations(lang);
 
 const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY || "";
 const channelId =
-  import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ||
-  import.meta.env.YOUTUBE_CHANNEL_ID ||
-  initialChannelId ||
-  "";
+	import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ||
+	import.meta.env.YOUTUBE_CHANNEL_ID ||
+	initialChannelId ||
+	"";
 
 const labels = {
-  watchOnYoutube: t.actions.watchOnYoutube,
-  views: t.characterPage.views,
-  upcoming: t.characterPage.upcoming,
-  membersOnly: t.characterPage.membersOnly,
-  live: t.characterPage.live,
-  videosBadgeSuffix: "VIDEOS",
+	watchOnYoutube: t.actions.watchOnYoutube,
+	views: t.characterPage.views,
+	upcoming: t.characterPage.upcoming,
+	membersOnly: t.characterPage.membersOnly,
+	live: t.characterPage.live,
+	videosBadgeSuffix: "VIDEOS",
 };
 ---
 
-<script define:vars={{ apiKey, channelId, labels }}>
-  import { fetchAllYouTubeDataClient } from "../services/youtube-client";
+<script define:vars={{ apiKey, channelId, labels }} is:inline>
+	import { fetchAllYouTubeDataClient } from "../services/youtube-client";
 
-  function escapeHtml(value = "") {
-    return value
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
-  }
+	function escapeHtml(value = "") {
+		return value
+			.replaceAll("&", "&amp;")
+			.replaceAll("<", "&lt;")
+			.replaceAll(">", "&gt;")
+			.replaceAll('"', "&quot;")
+			.replaceAll("'", "&#39;");
+	}
 
-  function createStatusBadge(status) {
-    if (!status || status === "published") return null;
+	function createStatusBadge(status) {
+		if (!status || status === "published") return null;
 
-    const badge = document.createElement("span");
-    badge.dataset.statusBadge = "true";
-    badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider";
+		const badge = document.createElement("span");
+		badge.dataset.statusBadge = "true";
+		badge.className =
+			"text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider";
 
-    if (status === "upcoming") {
-      badge.classList.add("bg-blue-600", "text-white", "animate-pulse");
-      badge.textContent = labels.upcoming;
-      return badge;
-    }
+		if (status === "upcoming") {
+			badge.classList.add("bg-blue-600", "text-white", "animate-pulse");
+			badge.textContent = labels.upcoming;
+			return badge;
+		}
 
-    if (status === "members-only") {
-      badge.classList.add("bg-amber-500", "text-black");
-      badge.textContent = labels.membersOnly;
-      return badge;
-    }
+		if (status === "members-only") {
+			badge.classList.add("bg-amber-500", "text-black");
+			badge.textContent = labels.membersOnly;
+			return badge;
+		}
 
-    if (status === "live") {
-      badge.classList.add("bg-red-600", "text-white", "animate-pulse");
-      badge.textContent = labels.live;
-      return badge;
-    }
+		if (status === "live") {
+			badge.classList.add("bg-red-600", "text-white", "animate-pulse");
+			badge.textContent = labels.live;
+			return badge;
+		}
 
-    return null;
-  }
+		return null;
+	}
 
-  function updateHeroBadge(channel) {
-    const badge = document.getElementById("hero-video-count-badge");
-    if (!badge || !channel?.videoCount) return;
+	function updateHeroBadge(channel) {
+		const badge = document.getElementById("hero-video-count-badge");
+		if (!badge || !channel?.videoCount) return;
 
-    const count = Number.parseInt(channel.videoCount, 10);
-    if (!Number.isFinite(count) || count <= 0) return;
+		const count = Number.parseInt(channel.videoCount, 10);
+		if (!Number.isFinite(count) || count <= 0) return;
 
-    badge.textContent = `+${count} ${labels.videosBadgeSuffix}`;
-  }
+		badge.textContent = `+${count} ${labels.videosBadgeSuffix}`;
+	}
 
-  function updateLatestEpisode(video) {
-    if (!video) return;
+	function updateLatestEpisode(video) {
+		if (!video) return;
 
-    const media = document.getElementById("latest-episode-media");
-    const title = document.getElementById("latest-episode-title");
-    const titleRow = document.getElementById("latest-episode-title-row");
-    const meta = document.getElementById("latest-episode-meta");
-    const link = document.getElementById("latest-episode-link");
+		const media = document.getElementById("latest-episode-media");
+		const title = document.getElementById("latest-episode-title");
+		const titleRow = document.getElementById("latest-episode-title-row");
+		const meta = document.getElementById("latest-episode-meta");
+		const link = document.getElementById("latest-episode-link");
 
-    if (!media || !title || !titleRow || !meta || !link) return;
+		if (!media || !title || !titleRow || !meta || !link) return;
 
-    media.innerHTML = `
+		media.innerHTML = `
       <iframe
         src="${escapeHtml(video.embedUrl)}?rel=0"
         title="${escapeHtml(video.title)}"
@@ -99,41 +100,46 @@ const labels = {
       ></iframe>
     `;
 
-    title.textContent = video.title;
-    titleRow.querySelector("[data-status-badge]")?.remove();
-    const statusBadge = createStatusBadge(video.status);
-    if (statusBadge) titleRow.appendChild(statusBadge);
+		title.textContent = video.title;
+		titleRow.querySelector("[data-status-badge]")?.remove();
+		const statusBadge = createStatusBadge(video.status);
+		if (statusBadge) titleRow.appendChild(statusBadge);
 
-    const metaParts = [];
-    if (video.duration) metaParts.push(`<span>⏱ ${escapeHtml(video.duration)}</span>`);
-    if (video.viewCount && video.status !== "upcoming") {
-      metaParts.push(`<span>👁 ${escapeHtml(video.viewCount)} ${escapeHtml(labels.views)}</span>`);
-    }
+		const metaParts = [];
+		if (video.duration)
+			metaParts.push(`<span>⏱ ${escapeHtml(video.duration)}</span>`);
+		if (video.viewCount && video.status !== "upcoming") {
+			metaParts.push(
+				`<span>👁 ${escapeHtml(video.viewCount)} ${escapeHtml(labels.views)}</span>`
+			);
+		}
 
-    meta.innerHTML = metaParts.join("");
-    link.href = `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`;
-  }
+		meta.innerHTML = metaParts.join("");
+		link.href = `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`;
+	}
 
-  function renderViralCards(videos) {
-    return videos.map((video) => {
-      const statsParts = [`👁 ${escapeHtml(video.viewCount)}`];
-      if (video.likeCount && video.likeCount !== "0") {
-        statsParts.push(`❤️ ${escapeHtml(video.likeCount)}`);
-      }
+	function renderViralCards(videos) {
+		return videos
+			.map((video) => {
+				const statsParts = [`👁 ${escapeHtml(video.viewCount)}`];
+				if (video.likeCount && video.likeCount !== "0") {
+					statsParts.push(`❤️ ${escapeHtml(video.likeCount)}`);
+				}
 
-      const statusBadge = video.status === "upcoming"
-        ? `<div class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg uppercase animate-pulse">${escapeHtml(labels.upcoming)}</div>`
-        : video.status === "members-only"
-          ? `<div class="bg-amber-500 text-black text-[10px] font-bold px-2 py-1 rounded-lg uppercase">${escapeHtml(labels.membersOnly)}</div>`
-          : video.status === "live"
-            ? `<div class="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg uppercase animate-pulse">${escapeHtml(labels.live)}</div>`
-            : "";
+				const statusBadge =
+					video.status === "upcoming"
+						? `<div class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg uppercase animate-pulse">${escapeHtml(labels.upcoming)}</div>`
+						: video.status === "members-only"
+							? `<div class="bg-amber-500 text-black text-[10px] font-bold px-2 py-1 rounded-lg uppercase">${escapeHtml(labels.membersOnly)}</div>`
+							: video.status === "live"
+								? `<div class="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg uppercase animate-pulse">${escapeHtml(labels.live)}</div>`
+								: "";
 
-      const duration = video.duration
-        ? `<div class="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded-lg backdrop-blur-sm">${escapeHtml(video.duration)}</div>`
-        : "";
+				const duration = video.duration
+					? `<div class="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded-lg backdrop-blur-sm">${escapeHtml(video.duration)}</div>`
+					: "";
 
-      return `
+				return `
         <a href="https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}" target="_blank" rel="noopener noreferrer" class="card-episode cursor-pointer group block">
           <div class="relative overflow-hidden">
             <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}" class="w-full aspect-video object-cover group-hover:scale-110 transition duration-500" loading="lazy" />
@@ -156,38 +162,41 @@ const labels = {
           </div>
         </a>
       `;
-    }).join("");
-  }
+			})
+			.join("");
+	}
 
-  function updateViralEpisodes(videos) {
-    if (!videos?.length) return;
+	function updateViralEpisodes(videos) {
+		if (!videos?.length) return;
 
-    const grid = document.getElementById("viral-episodes-grid");
-    if (!grid) return;
+		const grid = document.getElementById("viral-episodes-grid");
+		if (!grid) return;
 
-    grid.innerHTML = renderViralCards(videos);
-  }
+		grid.innerHTML = renderViralCards(videos);
+	}
 
-  async function initYouTubeSync() {
-    if (!channelId) return;
+	async function initYouTubeSync() {
+		if (!channelId) return;
 
-    const data = await fetchAllYouTubeDataClient({
-      apiKey,
-      channelId,
-      maxLatest: 12,
-      maxPopular: 6,
-    });
+		const data = await fetchAllYouTubeDataClient({
+			apiKey,
+			channelId,
+			maxLatest: 12,
+			maxPopular: 6,
+		});
 
-    if (!data) return;
+		if (!data) return;
 
-    updateHeroBadge(data.channel);
-    updateLatestEpisode(data.latestVideos?.[0] || null);
-    updateViralEpisodes(data.popularVideos || []);
-  }
+		updateHeroBadge(data.channel);
+		updateLatestEpisode(data.latestVideos?.[0] || null);
+		updateViralEpisodes(data.popularVideos || []);
+	}
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initYouTubeSync, { once: true });
-  } else {
-    initYouTubeSync();
-  }
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initYouTubeSync, {
+			once: true,
+		});
+	} else {
+		initYouTubeSync();
+	}
 </script>
