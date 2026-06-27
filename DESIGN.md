@@ -8,13 +8,13 @@ This document details the visual design system, color palette, typography, and c
 
 The project utilizes a premium dark aesthetic inspired by neon lights and urban culture (cyberpunk/TikTok style). The key colors are mapped in [tailwind.config.mjs](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/tailwind.config.mjs) under the following tokens:
 
-| Color Token | Hex Value | Primary Usage |
-| :--- | :--- | :--- |
-| `dark` | `#0A0A0A` | Base background color (`body`). Almost pitch-black to make neon elements stand out. |
-| `secondary` | `#111111` | Background color for cards, the navigation bar, footer, and secondary container blocks. |
-| `primary` | `#FF0055` | Hot Pink/Neon Red. Used for primary CTAs, neon borders, active accents, and button hover states. |
-| `accent` | `#00E5FF` | Neon Cyan. Used for secondary accents, hover states on episode cards, and alternate active links. |
-| `neon-yellow` | `#FFD600` | Neon Yellow. Dedicated to product cards, commercial partnership offers, and highlight badges. |
+| Color Token   | Hex Value | Primary Usage                                                                                                     |
+| :------------ | :-------- | :---------------------------------------------------------------------------------------------------------------- |
+| `dark`        | `#0A0A0A` | Base background color (`body`). Almost pitch-black to make neon elements stand out.                               |
+| `secondary`   | `#111111` | Background color for cards, the navigation bar, footer, and secondary container blocks.                           |
+| `primary`     | `#FF0055` | Hot Pink/Neon Red. Used for primary CTAs, neon borders, active accents, and button hover states.                  |
+| `accent`      | `#00E5FF` | Neon Cyan. Used for secondary accents, hover states on episode cards, and alternate active links.                 |
+| `neon-yellow` | `#FFD600` | Neon Yellow. Dedicated to product cards, commercial partnership offers, and highlight badges.                     |
 | `neon-purple` | `#E040FB` | Neon Purple. Reserved exclusively for high-importance sponsor calls-to-action (like the floating sponsor button). |
 
 ---
@@ -37,16 +37,20 @@ The website loads Google Fonts via the [BaseLayout.astro](file:///Users/albertol
 To keep Astro HTML markup clean and avoid over-saturating elements with long strings of Tailwind utility classes, custom component classes are defined in [src/styles/global.css](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/src/styles/global.css).
 
 ### 🧭 Navigation & Layout
+
 - `.nav-glass`: Semitransparent dark background with backdrop blur (`bg-dark/80 backdrop-blur-xl`).
 - `.hero-bg`: Angular gradient starting from deep dark `#0A0A0A` transitioning to a soft magenta glow in the bottom-right corner.
 - `.footer-gradient`: Vertical gradient transitioning from `dark` (`#0A0A0A`) down to `secondary` (`#111111`).
 
 ### ✨ Neon Effects & Borders
+
 - `.neon-border`: Applies a solid `2px` border with the `primary` color and adds an external and internal glowing pink box shadow.
 - `.neon-glow`: Triggers the `pulse-neon` keyframe animation to make the pink shadow breathe/pulsate.
 
 ### 🎴 Cards
+
 The project defines three main card styles, each featuring distinct, high-quality hover states:
+
 - `.card-crew` (Character Cards):
   - Uses `secondary` background, rounded `2xl` corners.
   - **Hover:** Translates upward by `12px` (`-translate-y-3`), scales slightly (`scale-[1.02]`), and drops a deep, blurred pink glow shadow (`box-shadow: 0 20px 60px rgba(255, 0, 85, 0.3)`).
@@ -61,6 +65,7 @@ The project defines three main card styles, each featuring distinct, high-qualit
   - **Hover:** Scales up smoothly to `105%`.
 
 ### 🎛️ Interactive UI Elements
+
 - `.sound-btn` (Soundboard Buttons):
   - Uses `secondary` background, a solid `primary` border, and text set in `Anton`.
   - **Hover:** Switches background to `primary`, scales up to `110%`, and casts an intense pink glow.

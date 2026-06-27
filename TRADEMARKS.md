@@ -4,9 +4,10 @@ This repository contains the source code for the **DeLaVida Podcast Webpage**. W
 
 ## ⚠️ Brand Name & Trademarks
 
-The names **"DeLaVida"**, **"De la Vida Podcast"**, **"Las Locuras de Miguelín"**, and any associated logos, slogans, or designs are personal trademarks. 
+The names **"DeLaVida"**, **"De la Vida Podcast"**, **"Las Locuras de Miguelín"**, and any associated logos, slogans, or designs are personal trademarks.
 
 If you fork or copy this repository, you **MUST**:
+
 - Change the brand name, site title, and descriptions.
 - Remove all official logos, branding assets, and custom design marks.
 - Ensure your project cannot be confused with, or seen as officially associated with, the original creators or the DeLaVida brand.

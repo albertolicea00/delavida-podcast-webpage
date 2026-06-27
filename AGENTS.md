@@ -67,7 +67,9 @@ All code modifications and additions must strictly align with the project's fold
 ## 🛠️ 2. Development Rules & Best Practices
 
 ### 🌐 A. Internationalization (i18n)
+
 The project is 100% bilingual. Any component or page displaying text to the user must use the i18n translation system:
+
 1. **Do not hardcode text strings** directly in HTML elements.
 2. Add translation entries in [es.ts](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/src/i18n/es.ts) and [en.ts](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/src/i18n/en.ts).
 3. In the Astro frontmatter of the file, retrieve translations using:
@@ -80,6 +82,7 @@ The project is 100% bilingual. Any component or page displaying text to the user
 5. Always generate localized links using the `getLocalizedPath(path, lang)` utility from [utils.ts](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/src/i18n/utils.ts).
 
 ### 🎨 B. Design System & Style Usage
+
 1. **Tailwind Usage:** Rely on Tailwind utility classes (`flex`, `grid`, `text-*`, `bg-*`, etc.) where possible.
 2. **Color Tokens:** Strictly reference the theme colors: `primary`, `secondary`, `accent`, `dark`, `neon-yellow`, `neon-purple`. Do not use arbitrary colors like `bg-red-500` or `text-blue-400` unless strictly necessary.
 3. **Custom Component Classes:** For specialized cards, neon glow boxes, and animations, check [DESIGN.md](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/DESIGN.md) before writing extra custom CSS.
@@ -88,10 +91,13 @@ The project is 100% bilingual. Any component or page displaying text to the user
    - Use `font-body` for body paragraphs, description copy, and common UI elements.
 
 ### 🧩 C. Interactive Client Elements (Astro Islands)
+
 Because Astro generates static HTML by default, if a component requires client-side JavaScript execution (for example, playing sound clips in `SoundboardSection.astro`, tracking state in `QuizSection.astro`, or opening the `ScamPopup.astro` modal):
+
 - Ensure script tags `<script>` are injected properly inside the Astro file, or if using reactive framework components, specify the correct hydration directive (e.g., `client:load` or `client:visible`).
 
 ### 📦 D. Modifying Website Content
+
 - If you need to update sound clips, add a new crew character, adjust a live event, or change viral videos, modify [site.ts](file:///Users/albertolicea00/Develop/cuban_influencer_projects/delavida_podcast/src/data/site.ts) in the `DATA_ES` and `DATA_EN` collections. **Do not edit the visual markup files to change static data.**
 
 ---
@@ -99,6 +105,7 @@ Because Astro generates static HTML by default, if a component requires client-s
 ## 🤖 3. Operational Rules for AI Agents
 
 When working inside this repository, keep in mind these environment and workflow constraints:
+
 1. **Do not make direct Git commits (`git commit`)** unless the user explicitly requests you to do so. The user prefers to review changes before committing.
 2. **Code Integrity:** Maintain existing comments and docstrings that are unrelated to your current changes.
 3. **Validation:** After making significant updates, propose running `npm run build` to verify that there are no TypeScript compiler errors or routing issues.
