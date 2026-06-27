@@ -27,7 +27,7 @@ Contributions are welcome! For instructions on how to set up, run, and contribut
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](./LICENSE), [NOTICE](./NOTICE), and [TRADEMARKS.md](./TRADEMARKS.md) files for more information.
 
 ---
 
