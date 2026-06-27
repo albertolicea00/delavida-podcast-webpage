@@ -1,6 +1,6 @@
 /**
  * Client-side script to handle Instagram data fetching and caching.
- * This runs on the user's browser, so requests come from their IP.
+ * This runs on the user's browser, calling the local API proxy.
  */
 
 export const IG_CACHE_KEY_PREFIX = "ig_data_";
@@ -23,11 +23,6 @@ export interface InstagramData {
   posts: InstagramPost[];
   timestamp: number;
 }
-
-const HEADERS = {
-  "X-IG-App-ID": "936619743392459",
-  Accept: "application/json",
-};
 
 export async function fetchInstagramDataClient(
   username: string,
@@ -53,39 +48,12 @@ export async function fetchInstagramDataClient(
   try {
     console.log(`[IG Client] Fetching @${username} from browser...`);
     
-    const igUrl = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${username}`;
+    const apiUrl = `/api/instagram?username=${username}`;
     
-    // Try multiple CORS proxy options
-    const proxyUrls = [
-      `https://corsproxy.io/?${encodeURIComponent(igUrl)}`,
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(igUrl)}`,
-    ];
-
-    let response: Response | null = null;
+    const response = await fetch(apiUrl);
     
-    for (const proxyUrl of proxyUrls) {
-      try {
-        const r = await fetch(proxyUrl, {
-          headers: {
-            ...HEADERS,
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-          },
-        });
-        if (r.ok) {
-          response = r;
-          break;
-        }
-        if (r.status === 429) {
-          console.warn(`[IG Client] Rate limited for @${username}`);
-          return null;
-        }
-      } catch {
-        continue; // try next proxy
-      }
-    }
-
-    if (!response) {
-      console.warn(`[IG Client] All proxies failed for @${username}`);
+    if (!response.ok) {
+      console.warn(`[IG Client] API proxy failed for @${username}: ${response.status}`);
       return null;
     }
 
